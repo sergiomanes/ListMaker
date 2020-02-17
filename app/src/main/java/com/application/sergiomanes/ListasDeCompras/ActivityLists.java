@@ -3,12 +3,12 @@ package com.application.sergiomanes.ListasDeCompras;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 
 import com.application.sergiomanes.ListasDeCompras.mvp.model.DatabaseHelper;
@@ -57,7 +57,7 @@ public class ActivityLists extends AppCompatActivity {
         super.onResume();
 
         arrayListLists = DB.getAllLists();
-        final ListsAdapter adapter = new ListsAdapter(arrayListLists, com.application.sergiomanes.ListasDeCompras.R.layout.listsrecyclerview, this, new ListsAdapter.OnItemClickListener() {
+        ListsAdapter adapter = new ListsAdapter(arrayListLists, com.application.sergiomanes.ListasDeCompras.R.layout.listsrecyclerview, this, new ListsAdapter.OnItemClickListener() {
             @Override
             public void OnItemClick(int pos) {
 
