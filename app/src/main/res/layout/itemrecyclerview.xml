@@ -56,9 +56,9 @@
                 android:id="@+id/productNameEditText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/architects_daughter"
                 android:text="name"
                 android:textSize="20dp"
-                android:fontFamily="@font/architects_daughter"
                 />
 
         </LinearLayout>
@@ -81,7 +81,6 @@
                 android:layout_height="wrap_content"
                 android:text="count"
                 android:textSize="20dp"
-                android:fontFamily="@font/architects_daughter"
                 />
         </LinearLayout>
 
@@ -101,8 +100,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="price"
-                android:textSize="20dp"
-                android:fontFamily="@font/architects_daughter"
+                android:textSize="20sp"
                 />
 
         </LinearLayout>

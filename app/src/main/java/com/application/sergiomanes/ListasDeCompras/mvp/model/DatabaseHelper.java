@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DB_NAME = "mysqlitedatabase";
-    private static final int DB_VERSION = 1;
+    private static final int DB_VERSION = 2;
 
     public DatabaseHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
@@ -22,6 +22,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         String sqlLists = "CREATE TABLE Lists " +
                 "(listID integer primary key autoincrement," +
+                "listName varchar,"+
                 "createdDate integer," +
                 "subTotal real)";
         String sqlProducts = "CREATE TABLE Products" +
@@ -39,11 +40,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-            String sqlLists = "DROP TABLE IF EXISTS Lists";
-            String sqlProducts = "DROP TABLE IF EXISTS Products";
-
-            db.execSQL(sqlProducts);
-            db.execSQL(sqlLists);
+        if (newVersion > oldVersion) {
+            db.execSQL("ALTER TABLE Lists ADD COLUMN listName varchar");
+        }
     }
 
     public long addProduct(Producto producto, Lista lista)

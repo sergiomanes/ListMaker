@@ -20,7 +20,8 @@
             android:gravity="center"
             android:padding="5dp">
 
-            <include layout="@layout/appbar_abml"/>
+            <include layout="@layout/appbar_abml"
+                android:id="@+id/menu"/>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerList"

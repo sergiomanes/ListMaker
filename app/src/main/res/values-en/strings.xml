@@ -16,10 +16,10 @@
     <string name="agregar_al_carrito">Add to cart</string>
     <string name="quitar_del_carrito">Remove from cart</string>
     <string name="modificar">Update</string>
-    <string name="borrar_listado">Delete List</string>
-    <string name="re_preguntar">Are you sure to delete the selected list?</string>
-    <string name="si">Yeah!</string>
-    <string name="no">Mmm no, thanks</string>
+    <string name="titulo_pop_up">Options</string>
+    <string name="re_preguntar">What should we do?</string>
+    <string name="eliminar_lista">Delete this list</string>
+    <string name="cambiar_nombre">Change its name</string>
     <string name="totalGastadoTitulo">Paid: $</string>
     <string name="duplicarLista">Duplicate this list!</string>
 </resources>

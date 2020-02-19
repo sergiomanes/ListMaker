@@ -3,20 +3,21 @@ package com.application.sergiomanes.ListasDeCompras;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 
 import com.application.sergiomanes.ListasDeCompras.mvp.model.DatabaseHelper;
 import com.application.sergiomanes.ListasDeCompras.mvp.model.Lista;
 import com.application.sergiomanes.ListasDeCompras.mvp.model.Producto;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.Date;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import static com.application.sergiomanes.ListasDeCompras.mvp.model.Lista.posInArray;
 
@@ -72,11 +73,11 @@ public class ActivityLists extends AppCompatActivity {
             public void OnItemLongClick(int pos) {
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(ActivityLists.this);
-                builder.setTitle(com.application.sergiomanes.ListasDeCompras.R.string.borrar_listado);
+                builder.setTitle(com.application.sergiomanes.ListasDeCompras.R.string.titulo_pop_up);
                 builder.setMessage(com.application.sergiomanes.ListasDeCompras.R.string.re_preguntar);
                 eventPosition = pos;
 
-                builder.setPositiveButton(com.application.sergiomanes.ListasDeCompras.R.string.si, new DialogInterface.OnClickListener() {
+                builder.setPositiveButton(com.application.sergiomanes.ListasDeCompras.R.string.eliminar_lista, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
 
@@ -88,9 +89,10 @@ public class ActivityLists extends AppCompatActivity {
                     }
                 });
 
-                builder.setNegativeButton(com.application.sergiomanes.ListasDeCompras.R.string.no, new DialogInterface.OnClickListener() {
+                builder.setNegativeButton(com.application.sergiomanes.ListasDeCompras.R.string.cambiar_nombre, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
+                        // cambiar nombre a la lista
                         dialogInterface.dismiss();
                     }
                 });

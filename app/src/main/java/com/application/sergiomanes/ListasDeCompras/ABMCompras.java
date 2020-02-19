@@ -1,10 +1,6 @@
 package com.application.sergiomanes.ListasDeCompras;
 
 import android.os.Bundle;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -20,6 +16,11 @@ import com.application.sergiomanes.ListasDeCompras.mvp.model.Producto;
 import java.util.ArrayList;
 import java.util.Date;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 public class ABMCompras extends AppCompatActivity {
 
     EditText nameProduct,countProduct,priceProduct;
@@ -27,6 +28,7 @@ public class ABMCompras extends AppCompatActivity {
     RecyclerView recyclerView;
     Button addProductbtn,updateProductbtn,deleteProductbtn;
     Lista list;
+    View menu;
     DatabaseHelper DB;
 
     @Override
@@ -43,6 +45,7 @@ public class ABMCompras extends AppCompatActivity {
         idProduct = (TextView) findViewById(com.application.sergiomanes.ListasDeCompras.R.id.idProductTextView);
         total = (TextView) findViewById(com.application.sergiomanes.ListasDeCompras.R.id.totalTextView);
         recyclerView = (RecyclerView) findViewById(com.application.sergiomanes.ListasDeCompras.R.id.recyclerList);
+        menu = findViewById(R.id.menu);
 
         DB = new DatabaseHelper(this);
 
@@ -71,6 +74,7 @@ public class ABMCompras extends AppCompatActivity {
         final DetailAdapter adapter = new DetailAdapter(list.getListProducts(), com.application.sergiomanes.ListasDeCompras.R.layout.itemrecyclerview, this, new DetailAdapter.OnItemClickListener() {
             @Override
             public void OnItemClick(int pos) {
+
                 Producto producto = DB.getProduct(list.getListProducts().get(pos));
                 idProduct.setText(String.valueOf(producto.getCode()));
                 nameProduct.setText(String.valueOf(producto.getName()));
@@ -117,13 +121,13 @@ public class ABMCompras extends AppCompatActivity {
                     list.setSubtotal(Double.parseDouble(total.getText().toString().replace(",", "."))-(producto.getPrice()*producto.getCount()));
                     total.setText(String.format("%.2f", list.getSubtotal()));
                     DB.updateSubTotalList(list);
-                    Toast.makeText(getApplicationContext(),getResources().getString(com.application.sergiomanes.ListasDeCompras.R.string.product_deleted),Toast.LENGTH_SHORT).show();
+                    Toast.makeText(v.getContext(),getResources().getString(R.string.product_deleted),Toast.LENGTH_SHORT).show();
 
                     clearFields();
                 }
                 else
                 {
-                    Toast.makeText(getApplicationContext(),getResources().getString(com.application.sergiomanes.ListasDeCompras.R.string.error_empty_fields),Toast.LENGTH_SHORT).show();
+                    Toast.makeText(v.getContext(),getResources().getString(R.string.error_empty_fields),Toast.LENGTH_SHORT).show();
                 }
             }
         });
