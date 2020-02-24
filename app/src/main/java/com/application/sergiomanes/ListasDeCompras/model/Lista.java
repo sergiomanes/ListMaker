@@ -1,4 +1,4 @@
-package com.application.sergiomanes.ListasDeCompras.mvp.model;
+package com.application.sergiomanes.ListasDeCompras.model;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -7,6 +7,8 @@ import java.util.Date;
 public class Lista {
 
     private ArrayList<Producto> list;
+
+    private String name;
     private long id;
     private Date createdDate;
     private Double subtotal;
@@ -18,7 +20,8 @@ public class Lista {
         this.subtotal = 0.0;
     }
 
-    public Lista(ArrayList<Producto> list, Date date) {
+    public Lista(String name, ArrayList<Producto> list, Date date) {
+        this.name = name;
         this.list = list;
         this.createdDate = date;
         this.subtotal = 0.0;
@@ -81,6 +84,14 @@ public class Lista {
             pos = -1;
         }
         return pos;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
 }

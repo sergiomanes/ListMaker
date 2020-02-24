@@ -9,14 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.application.sergiomanes.ListasDeCompras.ABMCompras">
+        <activity android:name="com.application.sergiomanes.ListasDeCompras.ui.ABMCompras">
 
         </activity>
-        <activity
-            android:name="com.application.sergiomanes.ListasDeCompras.RefActivity"
-            android:label="@string/title_activity_ref"
-            android:theme="@style/AppTheme" />
-        <activity android:name="com.application.sergiomanes.ListasDeCompras.ActivityLists">
+        <activity android:name="com.application.sergiomanes.ListasDeCompras.ui.ActivityLists">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

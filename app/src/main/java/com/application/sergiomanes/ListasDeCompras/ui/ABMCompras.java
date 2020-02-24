@@ -1,4 +1,4 @@
-package com.application.sergiomanes.ListasDeCompras;
+package com.application.sergiomanes.ListasDeCompras.ui;
 
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -9,9 +9,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.application.sergiomanes.ListasDeCompras.mvp.model.DatabaseHelper;
-import com.application.sergiomanes.ListasDeCompras.mvp.model.Lista;
-import com.application.sergiomanes.ListasDeCompras.mvp.model.Producto;
+import com.application.sergiomanes.ListasDeCompras.R;
+import com.application.sergiomanes.ListasDeCompras.adapter.DetailAdapter;
+import com.application.sergiomanes.ListasDeCompras.database.DatabaseHelper;
+import com.application.sergiomanes.ListasDeCompras.model.Lista;
+import com.application.sergiomanes.ListasDeCompras.model.Producto;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -58,7 +60,7 @@ public class ABMCompras extends AppCompatActivity {
         }
         else // Caso crear Lista nueva
         {
-            list = new Lista(new ArrayList<Producto>(), new Date());
+            list = new Lista(getResources().getString(R.string.sin_nombre), new ArrayList<Producto>(), new Date());
             DB.addList(list);
 
             if (list.getId()==-1){
@@ -71,7 +73,7 @@ public class ABMCompras extends AppCompatActivity {
 
         total.setText(String.format("%.2f", list.getSubtotal()));
 
-        final DetailAdapter adapter = new DetailAdapter(list.getListProducts(), com.application.sergiomanes.ListasDeCompras.R.layout.itemrecyclerview, this, new DetailAdapter.OnItemClickListener() {
+        final DetailAdapter adapter = new DetailAdapter(list.getListProducts(), getResources(), new DetailAdapter.OnItemClickListener() {
             @Override
             public void OnItemClick(int pos) {
 

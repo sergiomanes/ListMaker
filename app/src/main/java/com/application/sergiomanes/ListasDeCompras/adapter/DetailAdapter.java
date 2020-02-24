@@ -1,33 +1,33 @@
-package com.application.sergiomanes.ListasDeCompras;
+package com.application.sergiomanes.ListasDeCompras.adapter;
 
-import android.app.Activity;
-import androidx.recyclerview.widget.RecyclerView;
+import android.content.res.Resources;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.application.sergiomanes.ListasDeCompras.mvp.model.Producto;
+import com.application.sergiomanes.ListasDeCompras.R;
+import com.application.sergiomanes.ListasDeCompras.model.Producto;
 
 import java.util.ArrayList;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.Holder> {
 
     private ArrayList<Producto> list;
     private OnItemClickListener onItemClickListener;
-    int resource;
-    Activity activity;
+    private Resources resources;
 
-    public DetailAdapter(ArrayList<Producto> list, int resource, Activity activity, OnItemClickListener item) {
+    public DetailAdapter(ArrayList<Producto> list, Resources resources, OnItemClickListener item) {
         this.list = list;
-        this.resource = resource;
-        this.activity = activity;
+        this.resources = resources;
         this.onItemClickListener = item;
     }
 
     @Override
     public Holder onCreateViewHolder( ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(resource,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(resources.getLayout(R.layout.itemrecyclerview), parent, false);
 
         return new Holder(view);
     }
@@ -59,10 +59,10 @@ public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.Holder> {
 
         public Holder(View itemView) {
             super(itemView);
-            id = (TextView) itemView.findViewById(com.application.sergiomanes.ListasDeCompras.R.id.productIDTextView);
-            name = (TextView) itemView.findViewById(com.application.sergiomanes.ListasDeCompras.R.id.productNameEditText);
-            count = (TextView) itemView.findViewById(com.application.sergiomanes.ListasDeCompras.R.id.productCountTextView);
-            price = (TextView) itemView.findViewById(com.application.sergiomanes.ListasDeCompras.R.id.productPriceTextView);
+            id = itemView.findViewById(R.id.productIDTextView);
+            name = itemView.findViewById(R.id.productNameEditText);
+            count = itemView.findViewById(R.id.productCountTextView);
+            price = itemView.findViewById(R.id.productPriceTextView);
         }
     }
 

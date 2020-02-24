@@ -1,10 +1,13 @@
-package com.application.sergiomanes.ListasDeCompras.mvp.model;
+package com.application.sergiomanes.ListasDeCompras.database;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import com.application.sergiomanes.ListasDeCompras.model.Lista;
+import com.application.sergiomanes.ListasDeCompras.model.Producto;
 
 import java.sql.Date;
 import java.util.ArrayList;
@@ -40,7 +43,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        if (newVersion > oldVersion) {
+        if (2 > oldVersion) {
             db.execSQL("ALTER TABLE Lists ADD COLUMN listName varchar");
         }
     }
@@ -68,7 +71,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public  void updateProduct(Producto producto)
+    public void updateProduct(Producto producto)
     {
         ContentValues contentValues = new ContentValues();
         contentValues.put("productName",producto.getName());
@@ -98,6 +101,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 producto.setPrice(cursor.getDouble(3));
         }
 
+        cursor.close();
         db.close();
         return producto;
     }
@@ -120,10 +124,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 producto.setCount(cursor.getInt(2));
                 producto.setPrice(cursor.getDouble(3));
                 arrayListProducts.add(producto);
-            }while (cursor.moveToNext());
-
+            } while (cursor.moveToNext());
         }
 
+        cursor.close();
         db.close();
         list.setListProducts(arrayListProducts);
     }
@@ -135,7 +139,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = getReadableDatabase();
         ArrayList<Lista> arrayListLists = new ArrayList<>();
 
-        Cursor cursor = db.rawQuery("SELECT listID, createdDate , subTotal " +
+        Cursor cursor = db.rawQuery("SELECT listID, listName, createdDate , subTotal " +
                 "FROM Lists ORDER BY listID DESC",null);
 
         if (cursor.moveToFirst())
@@ -143,13 +147,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             do{
                 Lista lista = new Lista();
                 lista.setId(cursor.getInt(0));
-                lista.setCreatedDate(new Date(cursor.getLong(1)));
-                lista.setSubtotal(cursor.getDouble(2));
+                lista.setName(cursor.getString(1));
+                lista.setCreatedDate(new Date(cursor.getLong(2)));
+                lista.setSubtotal(cursor.getDouble(3));
                 arrayListLists.add(lista);
             }while (cursor.moveToNext());
 
         }
 
+        cursor.close();
         db.close();
         return arrayListLists ;
     }
@@ -157,9 +163,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void addList(Lista lista)
     {
         ContentValues contentValues = new ContentValues();
-        //Para dale el formato de fecha que quiero
-        /*SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy");
-        Date date = (Date)formatter.parse("12-December-2012"); */
+        contentValues.put("listName", lista.getName());
         contentValues.put("createdDate",lista.getCreatedDate().getTime());
 
         SQLiteDatabase db = getWritableDatabase();
@@ -174,16 +178,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         SQLiteDatabase db = getReadableDatabase();
 
-        Cursor cursor = db.rawQuery("SELECT listID, createdDate, subTotal " +
+        Cursor cursor = db.rawQuery("SELECT listID, listName, createdDate, subTotal " +
             "FROM Lists WHERE listID= "+id,null);
 
         if (cursor.moveToFirst())
         {
             list.setId(cursor.getLong(0));
-            list.setCreatedDate(new Date(cursor.getLong(1)));
-            list.setSubtotal(cursor.getDouble(2));
+            list.setName(cursor.getString(1));
+            list.setCreatedDate(new Date(cursor.getLong(2)));
+            list.setSubtotal(cursor.getDouble(3));
         }
 
+        cursor.close();
         db.close();
         return list;
     }
@@ -197,18 +203,26 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public  void updateSubTotalList(Lista list)
+    public void updateSubTotalList(Lista list)
     {
         ContentValues contentValues = new ContentValues();
         contentValues.put("listID",list.getId());
+        contentValues.put("listName", list.getName());
         contentValues.put("createdDate",list.getCreatedDate().getTime());
         contentValues.put("subTotal",list.getSubtotal());
 
         SQLiteDatabase db = getWritableDatabase();
-        db.update("Lists",contentValues,"listID = " + String.valueOf(list.getId()),null);
+        db.update("Lists", contentValues, "listID = " + list.getId(), null);
         db.close();
     }
 
+    public void changeListNameByID(String name, int pos) {
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("listName", name);
 
+        SQLiteDatabase db = getWritableDatabase();
+        db.update("Lists", contentValues, "listID = " + pos, null);
+        db.close();
+    }
 
 }

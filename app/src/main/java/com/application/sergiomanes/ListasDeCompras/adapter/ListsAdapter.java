@@ -1,34 +1,38 @@
-package com.application.sergiomanes.ListasDeCompras;
+package com.application.sergiomanes.ListasDeCompras.adapter;
 
-import android.app.Activity;
-import androidx.recyclerview.widget.RecyclerView;
+import android.content.res.Resources;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.application.sergiomanes.ListasDeCompras.mvp.model.Lista;
+import com.application.sergiomanes.ListasDeCompras.R;
+import com.application.sergiomanes.ListasDeCompras.model.Lista;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Locale;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 public class ListsAdapter extends RecyclerView.Adapter<ListsAdapter.ItemHolder> {
     private ArrayList<Lista> list;
     private OnItemClickListener onItemClickListener;
     private OnItemLongClickListener onItemLongClickListener;
-    int resource;
-    Activity activity;
+    Resources resources;
 
-    public ListsAdapter (ArrayList<Lista> list, int resource, Activity activity, OnItemClickListener item, OnItemLongClickListener itemlong) {
+    public ListsAdapter(ArrayList<Lista> list, Resources resources, OnItemClickListener item, OnItemLongClickListener itemlong) {
         this.list = list;
-        this.resource = resource;
-        this.activity = activity;
         this.onItemClickListener = item;
         this.onItemLongClickListener = itemlong;
+        this.resources = resources;
     }
 
     @Override
     public ListsAdapter.ItemHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(resource,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(
+                resources.getLayout(R.layout.listsrecyclerview),
+                parent, false);
 
         return new ListsAdapter.ItemHolder(view);
     }
@@ -37,7 +41,10 @@ public class ListsAdapter extends RecyclerView.Adapter<ListsAdapter.ItemHolder> 
     public void onBindViewHolder(final ListsAdapter.ItemHolder holder, final int position) {
         Lista lista = list.get(position);
         holder.paid.setText(String.valueOf(lista.getSubtotal()));
-        holder.date.setText(String.valueOf(lista.getCreatedDate()));
+        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
+
+        holder.date.setText(formatter.format(lista.getCreatedDate()));
+        holder.name.setText(lista.getName().isEmpty() ? resources.getString(R.string.sin_nombre) : lista.getName());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,12 +69,13 @@ public class ListsAdapter extends RecyclerView.Adapter<ListsAdapter.ItemHolder> 
 
     public class ItemHolder extends RecyclerView.ViewHolder {
 
-        private TextView paid, date;
+        private TextView paid, date, name;
 
         public ItemHolder(View itemView) {
             super(itemView);
             paid = (TextView) itemView.findViewById(com.application.sergiomanes.ListasDeCompras.R.id.numeroTextView);
             date = (TextView) itemView.findViewById(com.application.sergiomanes.ListasDeCompras.R.id.fechaTextView);
+            name = (TextView) itemView.findViewById(R.id.nombreTextView);
         }
     }
 

@@ -22,4 +22,9 @@
     <string name="cambiar_nombre">Change its name</string>
     <string name="totalGastadoTitulo">Paid: $</string>
     <string name="duplicarLista">Duplicate this list!</string>
+    <string name="sin_nombre">No name</string>
+    <string name="lista_duplicada">Duplicated list</string>
+    <string name="nuevo_nombre_para_la_lista">New name:</string>
+    <string name="ok">Ok</string>
+
 </resources>

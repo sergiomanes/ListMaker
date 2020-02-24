@@ -1,13 +1,17 @@
-package com.application.sergiomanes.ListasDeCompras;
+package com.application.sergiomanes.ListasDeCompras.ui;
 
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 
-import com.application.sergiomanes.ListasDeCompras.mvp.model.DatabaseHelper;
-import com.application.sergiomanes.ListasDeCompras.mvp.model.Lista;
-import com.application.sergiomanes.ListasDeCompras.mvp.model.Producto;
+import com.application.sergiomanes.ListasDeCompras.R;
+import com.application.sergiomanes.ListasDeCompras.adapter.ListsAdapter;
+import com.application.sergiomanes.ListasDeCompras.database.DatabaseHelper;
+import com.application.sergiomanes.ListasDeCompras.model.Lista;
+import com.application.sergiomanes.ListasDeCompras.model.Producto;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -19,7 +23,7 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import static com.application.sergiomanes.ListasDeCompras.mvp.model.Lista.posInArray;
+import static com.application.sergiomanes.ListasDeCompras.model.Lista.posInArray;
 
 public class ActivityLists extends AppCompatActivity {
 
@@ -35,14 +39,14 @@ public class ActivityLists extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(com.application.sergiomanes.ListasDeCompras.R.layout.activity_lists);
 
-        recyclerView = findViewById(com.application.sergiomanes.ListasDeCompras.R.id.recyclerAllLists);
-        addListButton = findViewById(com.application.sergiomanes.ListasDeCompras.R.id.addList) ;
+        recyclerView = findViewById(R.id.recyclerAllLists);
+        addListButton = findViewById(R.id.addList);
         DB = new DatabaseHelper(this);
 
         addListButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ActivityLists.this,ABMCompras.class);
+                Intent intent = new Intent(ActivityLists.this, ABMCompras.class);
                 startActivity(intent);
             }
         });
@@ -58,7 +62,7 @@ public class ActivityLists extends AppCompatActivity {
         super.onResume();
 
         arrayListLists = DB.getAllLists();
-        ListsAdapter adapter = new ListsAdapter(arrayListLists, com.application.sergiomanes.ListasDeCompras.R.layout.listsrecyclerview, this, new ListsAdapter.OnItemClickListener() {
+        ListsAdapter adapter = new ListsAdapter(arrayListLists, getResources(), new ListsAdapter.OnItemClickListener() {
             @Override
             public void OnItemClick(int pos) {
 
@@ -73,7 +77,7 @@ public class ActivityLists extends AppCompatActivity {
             public void OnItemLongClick(int pos) {
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(ActivityLists.this);
-                builder.setTitle(com.application.sergiomanes.ListasDeCompras.R.string.titulo_pop_up);
+                builder.setTitle(R.string.titulo_pop_up);
                 builder.setMessage(com.application.sergiomanes.ListasDeCompras.R.string.re_preguntar);
                 eventPosition = pos;
 
@@ -91,9 +95,29 @@ public class ActivityLists extends AppCompatActivity {
 
                 builder.setNegativeButton(com.application.sergiomanes.ListasDeCompras.R.string.cambiar_nombre, new DialogInterface.OnClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        // cambiar nombre a la lista
+                    public void onClick(final DialogInterface dialogInterface, int pos) {
                         dialogInterface.dismiss();
+                        eventPosition = pos;
+                        AlertDialog.Builder newNameBuilder = new AlertDialog.Builder(ActivityLists.this);
+
+                        View view = getLayoutInflater().inflate(R.layout.modal_new_list_name, null);
+                        final EditText newNameText = view.findViewById(R.id.editTextNewName);
+                        Button buttonOk = view.findViewById(R.id.buttonOk);
+
+                        buttonOk.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                DB.changeListNameByID(newNameText.getText().toString(), eventPosition);
+                                recyclerView.getAdapter().notifyItemChanged(eventPosition);
+                                dialogInterface.dismiss();
+                            }
+                        });
+
+
+                        newNameBuilder.setView(view);
+                        AlertDialog alertDialog = newNameBuilder.create();
+                        alertDialog.show();
+
                     }
                 });
 
@@ -101,12 +125,12 @@ public class ActivityLists extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         Lista list = arrayListLists.get(eventPosition);
-                        Lista newList = new Lista(new ArrayList<Producto>(),new Date());
+                        Lista newList = new Lista(getResources().getString(R.string.lista_duplicada), new ArrayList<Producto>(), new Date());
                         Producto product;
                         DB.addList(newList);
                         arrayListLists.add(newList);
                         DB.getAllProductsFromListID(list);
-                        for (int i=0;i<list.getListProducts().size();i++)
+                        for (int i = 0; i < list.getListProducts().size(); i++)
                         {
                             product = list.getListProducts().get(i);
                             product.setPrice(0);
@@ -131,7 +155,5 @@ public class ActivityLists extends AppCompatActivity {
 
         recyclerView.setAdapter(adapter);
     }
-
-
 }
 

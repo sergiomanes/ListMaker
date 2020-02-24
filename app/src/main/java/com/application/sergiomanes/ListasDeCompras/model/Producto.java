@@ -1,4 +1,4 @@
-package com.application.sergiomanes.ListasDeCompras.mvp.model;
+package com.application.sergiomanes.ListasDeCompras.model;
 
 import java.util.ArrayList;
 
