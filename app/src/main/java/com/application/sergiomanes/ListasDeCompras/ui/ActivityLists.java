@@ -8,10 +8,10 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.application.sergiomanes.ListasDeCompras.R;
-import com.application.sergiomanes.ListasDeCompras.adapter.ListsAdapter;
 import com.application.sergiomanes.ListasDeCompras.database.DatabaseHelper;
 import com.application.sergiomanes.ListasDeCompras.model.Lista;
 import com.application.sergiomanes.ListasDeCompras.model.Producto;
+import com.application.sergiomanes.ListasDeCompras.ui.adapter.ListsAdapter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;

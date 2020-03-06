@@ -10,10 +10,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.application.sergiomanes.ListasDeCompras.R;
-import com.application.sergiomanes.ListasDeCompras.adapter.DetailAdapter;
 import com.application.sergiomanes.ListasDeCompras.database.DatabaseHelper;
 import com.application.sergiomanes.ListasDeCompras.model.Lista;
 import com.application.sergiomanes.ListasDeCompras.model.Producto;
+import com.application.sergiomanes.ListasDeCompras.ui.adapter.DetailAdapter;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -38,15 +38,15 @@ public class ABMCompras extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(com.application.sergiomanes.ListasDeCompras.R.layout.activity_abml);
 
-        nameProduct = (EditText) findViewById(com.application.sergiomanes.ListasDeCompras.R.id.productNameEditText);
-        countProduct = (EditText) findViewById(com.application.sergiomanes.ListasDeCompras.R.id.countEditText);
-        priceProduct = (EditText) findViewById(com.application.sergiomanes.ListasDeCompras.R.id.priceEditText);
-        addProductbtn = (Button) findViewById(com.application.sergiomanes.ListasDeCompras.R.id.addButton);
-        updateProductbtn = (Button) findViewById(com.application.sergiomanes.ListasDeCompras.R.id.updateButton);
-        deleteProductbtn = (Button) findViewById(com.application.sergiomanes.ListasDeCompras.R.id.deleteButton);
-        idProduct = (TextView) findViewById(com.application.sergiomanes.ListasDeCompras.R.id.idProductTextView);
-        total = (TextView) findViewById(com.application.sergiomanes.ListasDeCompras.R.id.totalTextView);
-        recyclerView = (RecyclerView) findViewById(com.application.sergiomanes.ListasDeCompras.R.id.recyclerList);
+        nameProduct = findViewById(R.id.productNameEditText);
+        countProduct = findViewById(R.id.countEditText);
+        priceProduct = findViewById(R.id.priceEditText);
+        addProductbtn = findViewById(R.id.addButton);
+        updateProductbtn = findViewById(R.id.updateButton);
+        deleteProductbtn = findViewById(R.id.deleteButton);
+        idProduct = findViewById(R.id.idProductTextView);
+        total = findViewById(R.id.totalTextView);
+        recyclerView = findViewById(R.id.recyclerList);
         menu = findViewById(R.id.menu);
 
         DB = new DatabaseHelper(this);
@@ -222,11 +222,11 @@ public class ABMCompras extends AppCompatActivity {
     }
 
     public void clearFields(){
-        idProduct.setText(String.valueOf(""));
-        nameProduct.setText(String.valueOf(""));
+        idProduct.setText("");
+        nameProduct.setText("");
         nameProduct.requestFocus();
-        countProduct.setText(String.valueOf(""));
-        priceProduct.setText(String.valueOf(""));
+        countProduct.setText("");
+        priceProduct.setText("");
     }
 
     public boolean checkFields(){

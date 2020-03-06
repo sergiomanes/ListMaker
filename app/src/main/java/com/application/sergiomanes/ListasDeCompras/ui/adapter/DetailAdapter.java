@@ -1,4 +1,4 @@
-package com.application.sergiomanes.ListasDeCompras.adapter;
+package com.application.sergiomanes.ListasDeCompras.ui.adapter;
 
 import android.content.res.Resources;
 import android.view.LayoutInflater;
@@ -27,7 +27,7 @@ public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.Holder> {
 
     @Override
     public Holder onCreateViewHolder( ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(resources.getLayout(R.layout.itemrecyclerview), parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(resources.getLayout(R.layout.item_recycler_view), parent, false);
 
         return new Holder(view);
     }
