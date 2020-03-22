@@ -82,6 +82,7 @@ public class ABMCompras extends AppCompatActivity {
                 nameProduct.setText(String.valueOf(producto.getName()));
                 countProduct.setText(String.valueOf(producto.getCount()));
                 priceProduct.setText(String.valueOf(producto.getPrice()));
+                recyclerView.getLayoutManager().scrollToPosition(0);
             }
         });
 
@@ -94,7 +95,6 @@ public class ABMCompras extends AppCompatActivity {
         addProductbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 addProductProcess(adapter);
             }
         });
@@ -122,7 +122,7 @@ public class ABMCompras extends AppCompatActivity {
 
                     list.setSubtotal(Double.parseDouble(total.getText().toString().replace(",", "."))-(producto.getPrice()*producto.getCount()));
                     total.setText(String.format("%.2f", list.getSubtotal()));
-                    DB.updateSubTotalList(list);
+                    DB.updateList(list);
                     Toast.makeText(v.getContext(),getResources().getString(R.string.product_deleted),Toast.LENGTH_SHORT).show();
 
                     clearFields();
@@ -173,7 +173,7 @@ public class ABMCompras extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), getResources().getString(com.application.sergiomanes.ListasDeCompras.R.string.product_inserted), Toast.LENGTH_SHORT).show();
                 list.setSubtotal(list.getSubtotal()+(producto.getPrice()*producto.getCount()));
                 total.setText(String.format("%.2f", list.getSubtotal()));
-                DB.updateSubTotalList(list);
+                DB.updateList(list);
                 clearFields();
             } else {
                 Toast.makeText(getApplicationContext(), getResources().getString(com.application.sergiomanes.ListasDeCompras.R.string.error_product_insertion), Toast.LENGTH_SHORT).show();
@@ -212,7 +212,7 @@ public class ABMCompras extends AppCompatActivity {
 
             list.setSubtotal(subTotalBefore+(newProducto.getPrice()*newProducto.getCount()));
             total.setText(String.format("%.2f", list.getSubtotal()));
-            DB.updateSubTotalList(list);
+            DB.updateList(list);
             clearFields();
         }
         else

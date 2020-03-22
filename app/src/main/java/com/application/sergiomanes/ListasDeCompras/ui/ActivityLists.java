@@ -32,6 +32,8 @@ public class ActivityLists extends AppCompatActivity {
     DatabaseHelper DB;
     ArrayList<Lista> arrayListLists = new ArrayList<>();
     int eventPosition;
+    AlertDialog currentDialog;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,7 +99,6 @@ public class ActivityLists extends AppCompatActivity {
                     @Override
                     public void onClick(final DialogInterface dialogInterface, int pos) {
                         dialogInterface.dismiss();
-                        eventPosition = pos;
                         AlertDialog.Builder newNameBuilder = new AlertDialog.Builder(ActivityLists.this);
 
                         View view = getLayoutInflater().inflate(R.layout.modal_new_list_name, null);
@@ -107,17 +108,17 @@ public class ActivityLists extends AppCompatActivity {
                         buttonOk.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                DB.changeListNameByID(newNameText.getText().toString(), eventPosition);
+                                Lista list = arrayListLists.get(eventPosition);
+                                list.setName(newNameText.getText().toString());
+                                DB.updateList(list);
                                 recyclerView.getAdapter().notifyItemChanged(eventPosition);
-                                dialogInterface.dismiss();
+                                currentDialog.dismiss();
                             }
                         });
 
-
                         newNameBuilder.setView(view);
-                        AlertDialog alertDialog = newNameBuilder.create();
-                        alertDialog.show();
-
+                        currentDialog = newNameBuilder.create();
+                        currentDialog.show();
                     }
                 });
 
@@ -147,8 +148,8 @@ public class ActivityLists extends AppCompatActivity {
                     }
                 });
 
-                AlertDialog alerta = builder.create();
-                alerta.show();
+                currentDialog = builder.create();
+                currentDialog.show();
 
             }
         });

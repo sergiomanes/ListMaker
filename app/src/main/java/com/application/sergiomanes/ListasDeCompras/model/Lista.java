@@ -13,13 +13,6 @@ public class Lista {
     private Date createdDate;
     private Double subtotal;
 
-    public Lista(ArrayList<Producto> list, long id, Date date) {
-        this.list = list;
-        this.id = id;
-        this.createdDate = date;
-        this.subtotal = 0.0;
-    }
-
     public Lista(String name, ArrayList<Producto> list, Date date) {
         this.name = name;
         this.list = list;

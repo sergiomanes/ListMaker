@@ -43,7 +43,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        if (2 > oldVersion) {
+        if (newVersion > oldVersion) {
             db.execSQL("ALTER TABLE Lists ADD COLUMN listName varchar");
         }
     }
@@ -167,7 +167,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put("createdDate",lista.getCreatedDate().getTime());
 
         SQLiteDatabase db = getWritableDatabase();
-        long result = db.insert("Lists",null,contentValues);
+        long result = db.insert("Lists", null, contentValues);
         lista.setId(result);
         db.close();
     }
@@ -203,7 +203,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public void updateSubTotalList(Lista list)
+    public void updateList(Lista list)
     {
         ContentValues contentValues = new ContentValues();
         contentValues.put("listID",list.getId());
@@ -213,15 +213,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         SQLiteDatabase db = getWritableDatabase();
         db.update("Lists", contentValues, "listID = " + list.getId(), null);
-        db.close();
-    }
-
-    public void changeListNameByID(String name, int pos) {
-        ContentValues contentValues = new ContentValues();
-        contentValues.put("listName", name);
-
-        SQLiteDatabase db = getWritableDatabase();
-        db.update("Lists", contentValues, "listID = " + pos, null);
         db.close();
     }
 

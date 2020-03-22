@@ -41,10 +41,10 @@ public class ListsAdapter extends RecyclerView.Adapter<ListsAdapter.ItemHolder> 
     public void onBindViewHolder(final ListsAdapter.ItemHolder holder, final int position) {
         Lista lista = list.get(position);
         holder.paid.setText(String.valueOf(lista.getSubtotal()));
-        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
 
         holder.date.setText(formatter.format(lista.getCreatedDate()));
-        holder.name.setText(lista.getName().isEmpty() ? resources.getString(R.string.sin_nombre) : lista.getName());
+        holder.name.setText((lista.getName() == null || lista.getName().isEmpty()) ? resources.getString(R.string.sin_nombre) : lista.getName());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

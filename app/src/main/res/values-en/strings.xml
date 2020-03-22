@@ -9,9 +9,9 @@
     <string name="product_updated">Product updated!</string>
     <string name="error_empty_fields">There are empty fields…</string>
     <string name="supermarket_lists">Supermarket Lists</string>
-    <string name="nombre_del_producto">Product name:</string>
-    <string name="cantidad_comprada">Count:</string>
-    <string name="precio">Price: $</string>
+    <string name="nombre_del_producto">Product name</string>
+    <string name="cantidad_comprada">Count</string>
+    <string name="precio">Price $</string>
     <string name="total_comprando">Total: $</string>
     <string name="agregar_al_carrito">Add to cart</string>
     <string name="quitar_del_carrito">Remove from cart</string>
@@ -25,6 +25,6 @@
     <string name="sin_nombre">No name</string>
     <string name="lista_duplicada">Duplicated list</string>
     <string name="nuevo_nombre_para_la_lista">New name:</string>
-    <string name="ok">Ok</string>
+    <string name="ok">OK</string>
 
 </resources>

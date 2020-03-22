@@ -56,6 +56,8 @@
                 android:id="@+id/productNameEditText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
                 android:fontFamily="@font/architects_daughter"
                 android:text="name"
                 android:textSize="20dp"
@@ -79,6 +81,8 @@
                 android:id="@+id/productCountTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
                 android:text="count"
                 android:textSize="20dp"
                 />
